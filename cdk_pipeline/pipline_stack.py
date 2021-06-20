@@ -17,7 +17,7 @@ class PiplineStack(cdk.Stack):
             source_action=cpactions.GitHubSourceAction(
                 action_name='GitHub',
                 output=source_artifact,
-                oauth_token=cdk.SecretValue.secrets_manager('github-token'),
+                oauth_token=cdk.SecretValue.secrets_manager('mz-github-token'),
                 owner='yueming-zhang',
                 repo='cdkpipeline',
                 trigger=cpactions.GitHubTrigger.POLL),
