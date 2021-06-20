@@ -28,7 +28,7 @@ class PiplineStack(cdk.Stack):
                 source_artifact=source_artifact,
                 cloud_assembly_artifact=cloud_assembly_artifact,
                 install_command='npm install -g aws-cdk && pip install -r requirements.txt',
-                build_command='pytest unittests',
+                build_command='pytest ./cdk_pipeline/unittests',
                 synth_command='cdk synth')
 
             )
@@ -47,7 +47,7 @@ class PiplineStack(cdk.Stack):
             additional_artifacts=[source_artifact],
             commands=[
                 'pip install -r requirements.txt',
-                'pytest integtests',
+                'pytest ./cdk_pipeline/integtests',
             ],
             use_outputs={'SERVICE_URL': pipeline.stack_output(pre_prod_app.url_output)}
         ))
