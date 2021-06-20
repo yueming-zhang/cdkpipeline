@@ -17,7 +17,7 @@ class PiplineStack(cdk.Stack):
             pipeline_name='CDKPipeline',
 
             source_action=cpactions.GitHubSourceAction(
-                action_name='GitHub',
+                action_name='Get Code from GitHub',
                 output=source_artifact,
                 oauth_token=cdk.SecretValue.secrets_manager('mz-github-token'),
                 owner='yueming-zhang',
@@ -25,6 +25,7 @@ class PiplineStack(cdk.Stack):
                 trigger=cpactions.GitHubTrigger.POLL),
 
             synth_action=pipelines.SimpleSynthAction(
+                action_name='Synth, and UnitTest',
                 source_artifact=source_artifact,
                 cloud_assembly_artifact=cloud_assembly_artifact,
                 install_command='npm install -g aws-cdk && pip install -r requirements.txt',
@@ -40,7 +41,7 @@ class PiplineStack(cdk.Stack):
 
         pre_prod_stage = pipeline.add_application_stage(pre_prod_app)
 
-        # add integration test action
+        # add integration test action to the pre_prod_stage
         pre_prod_stage.add_actions(pipelines.ShellScriptAction(
             action_name='IntegrationTest',
             run_order=pre_prod_stage.next_sequential_run_order(),
@@ -52,6 +53,7 @@ class PiplineStack(cdk.Stack):
             use_outputs={'SERVICE_URL': pipeline.stack_output(pre_prod_app.url_output)}
         ))
 
+        # if pass all tests, finally deploy to production 
         pipeline.add_application_stage(
             WebServiceStage(self, 'Prod',env={
                 'account': '804197954628',#'334146477851'
