@@ -42,7 +42,7 @@ class PiplineStack(cdk.Stack):
 
         # add integration test action
         pre_prod_stage.add_actions(pipelines.ShellScriptAction(
-            action_name='Integ',
+            action_name='IntegrationTest',
             run_order=pre_prod_stage.next_sequential_run_order(),
             additional_artifacts=[source_artifact],
             commands=[
