@@ -17,7 +17,7 @@ class PiplineStack(cdk.Stack):
             pipeline_name='CDKPipeline',
 
             source_action=cpactions.GitHubSourceAction(
-                action_name='Get Code from GitHub',
+                action_name='GitHub',
                 output=source_artifact,
                 oauth_token=cdk.SecretValue.secrets_manager('mz-github-token'),
                 owner='yueming-zhang',
@@ -25,7 +25,7 @@ class PiplineStack(cdk.Stack):
                 trigger=cpactions.GitHubTrigger.POLL),
 
             synth_action=pipelines.SimpleSynthAction(
-                action_name='Synth, and UnitTest',
+                action_name='Synth_and_UnitTest',
                 source_artifact=source_artifact,
                 cloud_assembly_artifact=cloud_assembly_artifact,
                 install_command='npm install -g aws-cdk && pip install -r requirements.txt',
