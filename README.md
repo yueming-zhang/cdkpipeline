@@ -57,3 +57,6 @@ command.
 
 Enjoy!
 # cdkpipeline
+
+$ (Ming)Bootstrape specify additional permission:
+cdk bootstrap --cloudformation-execution-policies arn:aws:iam:aws:policy/AdministratorAccess
