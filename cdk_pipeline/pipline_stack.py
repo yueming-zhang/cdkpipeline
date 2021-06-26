@@ -25,7 +25,7 @@ class PiplineStack(cdk.Stack):
                 trigger=cpactions.GitHubTrigger.POLL),
 
             synth_action=pipelines.SimpleSynthAction(
-                action_name='Synth_and_UnitTest',
+                action_name='Synth_n_UT',
                 source_artifact=source_artifact,
                 cloud_assembly_artifact=cloud_assembly_artifact,
                 install_command='npm install -g aws-cdk && pip install -r requirements.txt',
@@ -35,7 +35,7 @@ class PiplineStack(cdk.Stack):
             )
 
         pre_prod_app = WebServiceStage(self, 'Pre-Prod',env={
-                'account': '804197954628',#'334146477851'
+                'account': '334146477851', #'804197954628',#
                 'region': 'us-east-1',
             })
 
@@ -56,7 +56,7 @@ class PiplineStack(cdk.Stack):
         # if pass all tests, finally deploy to production 
         pipeline.add_application_stage(
             WebServiceStage(self, 'Prod',env={
-                'account': '804197954628',#'334146477851'
+                'account': '334146477851', #'804197954628',#
                 'region': 'us-east-1',
             })
         )        
