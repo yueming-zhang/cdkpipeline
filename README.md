@@ -60,3 +60,6 @@ Enjoy!
 
 $ (Ming)Bootstrape specify additional permission:
 cdk bootstrap --cloudformation-execution-policies arn:aws:iam:aws:policy/AdministratorAccess
+
+
+cdk bootstrap aws://334146477851/us-east-1 --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess --profile tidev
